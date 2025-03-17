@@ -1,6 +1,26 @@
 <h1>Books</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+       <td><%= book.title %></td>
+       <td><%= book.body %></td>
+       <td><%= link_to "Show", book_path(book) %></td>
+       <td><%= link_to "Edit", edit_book_path(book) %></td>
+       <td><%= link_to "Destroy", destroy_book_path(book), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <h2>New book</h2>
-<%= form_with model: @book do |f| %>
+<%= form_with model: @books, url: '/books', method: :post do |f| %>
 
   <div>Title</div>
   <%= f.text_field :title %>
@@ -9,5 +29,6 @@
   <%= f.text_area :body %>
 
   <%= f.submit 'Create Book' %>
+
 <% end %>
 
